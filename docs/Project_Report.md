@@ -62,20 +62,6 @@ standard, non-destructive techniques taught in introductory network
 security courses. The toolkit is intended for use only on systems and
 networks the user owns or has explicit permission to assess.
 
-## 5. Methodology
-
-The team followed an iterative, module-first development approach:
-
-1. **Week 1 — Planning & Foundations:** Defined the repository structure,
-   agreed on coding conventions (PEP 8, docstrings, type-friendly function
-   signatures), and implemented `utils.py` and `host_discovery.py`.
-2. **Week 2 — Core Scanning:** Implemented `scanner.py` (multithreaded TCP
-   scanning with basic vulnerability flagging) and `banner_grabber.py`.
-3. **Week 3 — Analysis Modules:** Implemented `password_checker.py`,
-   `integrity_checker.py`, and `log_analyzer.py`, each with unit tests.
-4. **Week 4 — Integration & Reporting:** Built `report_generator.py` for
-   HTML/PDF output, tied every module together in `main.py`, wrote
-   documentation, and prepared the final repository for submission.
 
 ## 6. System Design
 
