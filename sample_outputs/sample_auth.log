@@ -1,0 +1,10 @@
+Jun 28 09:12:01 ubuntu-server sshd[1022]: Failed password for invalid user admin from 203.0.113.55 port 51422 ssh2
+Jun 28 09:12:03 ubuntu-server sshd[1023]: Failed password for invalid user admin from 203.0.113.55 port 51423 ssh2
+Jun 28 09:12:05 ubuntu-server sshd[1024]: Failed password for invalid user root from 203.0.113.55 port 51424 ssh2
+Jun 28 09:12:07 ubuntu-server sshd[1025]: Failed password for invalid user root from 203.0.113.55 port 51425 ssh2
+Jun 28 09:12:09 ubuntu-server sshd[1026]: Failed password for invalid user test from 203.0.113.55 port 51426 ssh2
+Jun 28 09:12:11 ubuntu-server sshd[1027]: Failed password for invalid user test from 203.0.113.55 port 51427 ssh2
+Jun 28 09:14:20 ubuntu-server sshd[1030]: Accepted password for rishi from 192.168.1.20 port 52311 ssh2
+Jun 28 09:20:45 ubuntu-server sshd[1041]: Failed password for invalid user oracle from 198.51.100.12 port 40233 ssh2
+Jun 28 09:25:10 ubuntu-server sshd[1055]: Accepted password for deploy from 192.168.1.22 port 52890 ssh2
+Jun 28 09:31:02 ubuntu-server sshd[1066]: Failed password for invalid user postgres from 203.0.113.88 port 41200 ssh2

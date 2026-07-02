@@ -1,0 +1,201 @@
+# Project Report
+
+## SecureNet Guardian — Network Security Assessment Toolkit
+
+**Submitted as part of:** Cyber Security Internship / Academic Project
+**Team:** Abdul Rahim R, Lokesh D, Nishith P, Saran V, Sivaguru S
+**Duration:** June 2026 (4 weeks)
+**Technology Stack:** Python 3
+
+---
+
+## 1. Abstract
+
+SecureNet Guardian is a command-line network security assessment toolkit
+developed to help students and system administrators evaluate the basic
+security posture of systems and networks they own or are authorized to
+test. The toolkit consolidates several classic security-assessment
+techniques — host discovery, port scanning, banner grabbing, password
+strength analysis, file integrity monitoring, and log analysis — into a
+single, modular Python application, and produces professional HTML/PDF
+reports summarizing the findings.
+
+## 2. Problem Statement
+
+Small organizations, student labs, and individual developers frequently lack
+easy access to consolidated, beginner-friendly security assessment tools.
+Commercial and open-source scanners (Nmap, Nessus, OpenVAS) are powerful but
+often complex to configure and interpret for newcomers. There is a need for
+a lightweight, transparent, and educational toolkit that:
+
+- Demonstrates the *fundamentals* behind common security assessment
+  techniques rather than hiding them behind a black box.
+- Is simple enough for 2nd-year Computer Science / Cyber Security students
+  to read, understand, and extend.
+- Produces clear, exportable reports suitable for review by an instructor,
+  mentor, or team lead.
+
+## 3. Objectives
+
+1. Build a working network host discovery utility for private network
+   ranges.
+2. Implement a multithreaded TCP port scanner covering common service
+   ports.
+3. Implement banner grabbing to identify running services and versions.
+4. Flag well-known risky service configurations (e.g. Telnet, exposed SMB).
+5. Build a password strength analyzer using entropy estimation and
+   heuristic rules.
+6. Build a file integrity checker using SHA-256 hashing to detect
+   unauthorized file changes.
+7. Build a log analyzer capable of detecting brute-force login patterns in
+   SSH auth logs and summarizing web server access logs.
+8. Generate professional, exportable HTML and PDF security reports.
+9. Package everything behind a single, user-friendly CLI.
+
+## 4. Scope and Ethical Boundaries
+
+This project is strictly **defensive and educational**. It does not include
+any exploitation code, payload delivery, credential harvesting, or
+denial-of-service functionality. All scanning techniques used
+(TCP connect scans, ICMP-style ping sweeps, passive banner reads) are
+standard, non-destructive techniques taught in introductory network
+security courses. The toolkit is intended for use only on systems and
+networks the user owns or has explicit permission to assess.
+
+## 5. Methodology
+
+The team followed an iterative, module-first development approach:
+
+1. **Week 1 — Planning & Foundations:** Defined the repository structure,
+   agreed on coding conventions (PEP 8, docstrings, type-friendly function
+   signatures), and implemented `utils.py` and `host_discovery.py`.
+2. **Week 2 — Core Scanning:** Implemented `scanner.py` (multithreaded TCP
+   scanning with basic vulnerability flagging) and `banner_grabber.py`.
+3. **Week 3 — Analysis Modules:** Implemented `password_checker.py`,
+   `integrity_checker.py`, and `log_analyzer.py`, each with unit tests.
+4. **Week 4 — Integration & Reporting:** Built `report_generator.py` for
+   HTML/PDF output, tied every module together in `main.py`, wrote
+   documentation, and prepared the final repository for submission.
+
+## 6. System Design
+
+See [`Architecture.md`](Architecture.md) for the full architecture diagram
+and data flow description. In summary, `main.py` acts as a thin CLI layer
+that dispatches to independent modules, each of which returns structured
+Python data (lists/dicts) rather than printing raw text — this makes every
+module independently testable and easy to feed into the report generator.
+
+## 7. Implementation Highlights
+
+- **Concurrency:** Host discovery and port scanning use
+  `concurrent.futures.ThreadPoolExecutor` to scan many hosts/ports in
+  parallel, dramatically reducing scan time on larger ranges.
+- **Password Entropy:** Password strength is estimated using the standard
+  `entropy = length × log2(character_pool_size)` formula, combined with
+  heuristic penalties for common passwords, sequences, and repeated
+  characters.
+- **File Integrity:** SHA-256 hashing is performed in 64 KB chunks to
+  safely handle large files without high memory usage.
+- **Log Analysis:** Regular expressions extract structured events (failed
+  logins, accepted logins, HTTP status codes) from raw log lines, and a
+  configurable threshold flags IP addresses exhibiting brute-force-like
+  behavior.
+- **Reporting:** HTML reports use an inline CSS template for portability;
+  PDF reports are generated with `reportlab`, using styled tables for
+  scan results.
+
+## 8. Testing
+
+A `pytest`-based test suite (`tests/`) covers:
+
+- Port scanner behavior against a local dummy TCP server (open vs. closed
+  ports).
+- Password strength scoring across weak, common, and strong password
+  examples.
+- File integrity baseline generation, tamper detection, and missing-file
+  detection.
+- Log analyzer parsing accuracy and brute-force threshold flagging.
+
+All 18 automated tests pass as of the v1.0.0 release (see
+`CHANGELOG.md`).
+
+## 9. Sample Results
+
+Representative sample outputs are included in `sample_outputs/`:
+
+- `sample_auth.log` — a synthetic SSH auth log used to demonstrate
+  brute-force detection.
+- `port_scan_results.csv` / `host_discovery_results.csv` — example CSV
+  exports.
+- `report_*.html` / `report_*.pdf` — example consolidated security
+  reports generated by `report_generator.py`.
+
+## 10. Learning Outcomes
+
+Working on this project gave the team hands-on experience with:
+
+- Socket programming and TCP connection semantics in Python.
+- Multithreading with `concurrent.futures` for I/O-bound network tasks.
+- Regular expressions for structured log parsing.
+- Cryptographic hashing (SHA-256) and its role in integrity monitoring.
+- Password entropy theory and common password-strength heuristics.
+- Building CLI tools with `argparse`.
+- Generating structured reports (HTML templating and PDF generation with
+  `reportlab`).
+- Git/GitHub collaboration workflows, code review, and writing unit tests.
+
+## 11. Challenges Faced
+
+- Balancing scan speed with network friendliness (avoiding overly
+  aggressive thread counts that could look like a denial-of-service
+  pattern).
+- Designing a password entropy model that is easy to explain to
+  beginners while still being reasonably accurate.
+- Cross-platform ping behavior differences between Windows and
+  Linux/macOS `ping` command flags.
+- Keeping the codebase beginner-readable while still using efficient,
+  idiomatic Python (threading, regex, hashlib).
+
+## 12. Future Enhancements
+
+- Add UDP port scanning support.
+- Integrate with the Have I Been Pwned k-anonymity API for real breach
+  checking (replacing the small hardcoded common-password list).
+- Add a simple web dashboard (Flask) as an alternative to the CLI.
+- Support scheduled/recurring integrity checks with email alerts.
+- Add IPv6 support to host discovery and port scanning.
+- Extend log analysis to support additional formats (Windows Event Logs,
+  firewall logs).
+
+## 13. Conclusion
+
+SecureNet Guardian successfully demonstrates that a small, well-organized
+Python codebase can implement the core building blocks of a real-world
+security assessment workflow — discovery, scanning, analysis, and
+reporting — in a way that remains approachable for early-stage Cyber
+Security students. The modular design also makes the project a solid
+foundation for future coursework or personal extension.
+
+## 14. Team Contributions
+
+| Member | Contribution |
+|---|---|
+| Abdul Rahim R | Project Lead; Network Scanner Module; Final Integration |
+| Lokesh D | Password Strength Analyzer; File Integrity Checker |
+| Nishith P | Banner Grabbing Module; Log Analysis Module |
+| Saran V | Report Generation; Documentation; Testing |
+| Sivaguru S | README Documentation; GitHub Repository Management; Bug Fixing; Code Review |
+
+## 15. References
+
+1. Python Software Foundation. *socket — Low-level networking interface.*
+   https://docs.python.org/3/library/socket.html
+2. Python Software Foundation. *hashlib — Secure hashes and message
+   digests.* https://docs.python.org/3/library/hashlib.html
+3. Python Software Foundation. *concurrent.futures — Launching parallel
+   tasks.* https://docs.python.org/3/library/concurrent.futures.html
+4. OWASP Foundation. *Password Storage Cheat Sheet.*
+   https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+5. NIST. *SP 800-63B: Digital Identity Guidelines — Authentication and
+   Lifecycle Management.* https://pages.nist.gov/800-63-3/sp800-63b.html
+6. ReportLab Documentation. https://docs.reportlab.com/

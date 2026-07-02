@@ -1,0 +1,5 @@
+host,port,service,risk_note,checked_at
+192.168.1.10,22,SSH,No common issues flagged.,2026-06-28 09:40:12
+192.168.1.10,23,Telnet,Telnet transmits data in plaintext. Prefer SSH.,2026-06-28 09:40:12
+192.168.1.10,80,HTTP,No common issues flagged.,2026-06-28 09:40:12
+192.168.1.10,445,SMB,SMB has historically been targeted by worms (e.g. EternalBlue). Ensure it is patched and not exposed to the internet.,2026-06-28 09:40:12
