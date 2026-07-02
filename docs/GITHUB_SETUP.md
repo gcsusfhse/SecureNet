@@ -37,7 +37,7 @@ git init
 git add .
 git commit -m "Initial commit: project scaffolding and repository structure"
 git branch -M main
-git remote add origin https://github.com/<your-org>/CyberSecurity-Toolkit.git
+git remote add origin https://github.com/gcsusfhse/SecureNet.git
 git push -u origin main
 ```
 
