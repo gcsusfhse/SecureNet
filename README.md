@@ -145,7 +145,7 @@ CyberSecurity-Toolkit/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-org>/CyberSecurity-Toolkit.git
+git clone https://github.com/gcsusfhse/SecureNet.git
 cd CyberSecurity-Toolkit
 
 # 2. Create and activate a virtual environment (recommended)
