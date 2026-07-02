@@ -4,7 +4,7 @@
 
 **Submitted as part of:** Cyber Security Internship / Academic Project
 **Team:** Abdul Rahim R, Lokesh D, Nishith P, Saran V, Sivaguru S
-**Duration:** June 2026 (4 weeks)
+**Duration:** June 2026 
 **Technology Stack:** Python 3
 
 ---
